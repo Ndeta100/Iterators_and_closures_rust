@@ -1,7 +1,7 @@
-use std::{thread, time::Duration};
+use std::{collections::HashMap, thread, time::Duration};
 fn main() {
-    let simulated_user_specified_value = 10;
-    let simulated_random_number = 7;
+    let simulated_user_specified_value = 30;
+    let simulated_random_number = 3;
     generate_workout(simulated_user_specified_value, simulated_random_number);
 }
 struct Cacher<T>
@@ -9,7 +9,7 @@ where
     T: Fn(u32) -> u32,
 {
     calculation: T,
-    value: Option<u32>,
+    value: HashMap<u32, Option<u32>>,
 }
 impl<T> Cacher<T>
 where
@@ -53,4 +53,11 @@ fn generate_workout(intensity: u32, random_number: u32) {
             );
         }
     }
+}
+#[test]
+fn call_with_different_values() {
+    let mut c = Cacher::new(|a| a);
+    let _v1 = c.value(1);
+    let v2 = c.value(2);
+    assert_eq!(v2, 2);
 }
