@@ -3,6 +3,15 @@ fn main() {
     let simulated_user_specified_value = 30;
     let simulated_random_number = 3;
     generate_workout(simulated_user_specified_value, simulated_random_number);
+    let x = 4;
+    let equal_to_x = |z| z == x;
+    let y = 4;
+    assert!(equal_to_x(y));
+    let u = vec![1, 2, 3];
+    let equal_to_x_vec = move |z| z == u;
+    println!("can't ust u here {:?}", u);
+    let v = vec![2, 3, 4];
+    assert!(equal_to_x_vec(v));
 }
 struct Cacher<T>
 where
