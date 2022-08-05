@@ -22,6 +22,45 @@ fn main() {
     let v3: Vec<_> = v2.iter().map(|x| x + 1).collect();
     assert_eq!(v3, vec![2, 3, 4]);
 }
+struct Counter {
+    count: u32,
+}
+impl Counter {
+    fn new() -> Counter {
+        Counter { count: 0 }
+    }
+}
+impl Iterator for Counter {
+    type Item = u32;
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.count < 5 {
+            self.count += 1;
+            Some(self.count)
+        } else {
+            None
+        }
+    }
+}
+#[test]
+fn calling_next_directly() {
+    let mut counter = Counter::new();
+    assert_eq!(counter.next(), Some(1));
+    assert_eq!(counter.next(), Some(2));
+    assert_eq!(counter.next(), Some(3));
+    assert_eq!(counter.next(), Some(4));
+    assert_eq!(counter.next(), Some(5));
+    assert_eq!(counter.next(), None);
+    assert_eq!(counter.next(), None);
+}
+#[test]
+fn using_other_iterator_trait_methods() {
+    let sum: u32 = Counter::new()
+        .zip(Counter::new())
+        .map(|(a, b)| a * b)
+        .filter(|product| product % 3 == 0)
+        .sum();
+    assert_eq!(9, sum);
+}
 #[test]
 fn iteratore_demonstration() {
     let v1 = vec![1, 2, 3];
@@ -60,7 +99,7 @@ mod test {
                 style: String::from("Sneakers"),
             },
             Shoe {
-                size: 12,
+                size: 10,
                 style: String::from("Sandals"),
             },
             Shoe {
@@ -78,11 +117,11 @@ mod test {
                 },
                 Shoe {
                     size: 10,
-                    style: String::from("Boots")
+                    style: String::from("Sandals"),
                 },
                 Shoe {
-                    size: 12,
-                    style: String::from("Sandals"),
+                    size: 10,
+                    style: String::from("Boots")
                 },
             ]
         );
