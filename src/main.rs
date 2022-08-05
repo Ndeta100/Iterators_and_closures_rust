@@ -38,6 +38,56 @@ fn iterator_sum() {
     let total: i32 = v1_iter.sum();
     assert_eq!(total, 6);
 }
+#[derive(PartialEq, Debug)]
+struct Shoe {
+    size: u32,
+    style: String,
+}
+fn shoe_in_my_size(shoes: Vec<Shoe>, shoe_size: u32) -> Vec<Shoe> {
+    shoes
+        .into_iter()
+        .filter(|shoe| shoe.size == shoe.size)
+        .collect()
+}
+#[cfg(test)]
+mod test {
+    use super::*;
+    #[test]
+    fn filter_by_size() {
+        let shoe = vec![
+            Shoe {
+                size: 10,
+                style: String::from("Sneakers"),
+            },
+            Shoe {
+                size: 12,
+                style: String::from("Sandals"),
+            },
+            Shoe {
+                size: 10,
+                style: String::from("Boots"),
+            },
+        ];
+        let in_my_size = shoe_in_my_size(shoe, 10);
+        assert_eq!(
+            in_my_size,
+            vec![
+                Shoe {
+                    size: 10,
+                    style: String::from("Sneakers")
+                },
+                Shoe {
+                    size: 10,
+                    style: String::from("Boots")
+                },
+                Shoe {
+                    size: 12,
+                    style: String::from("Sandals"),
+                },
+            ]
+        );
+    }
+}
 struct Cacher<T>
 where
     T: Fn(u32) -> u32,
