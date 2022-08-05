@@ -1,4 +1,4 @@
-use std::{collections::HashMap, thread, time::Duration};
+use std::{collections::HashMap, thread, time::Duration, vec};
 fn main() {
     let simulated_user_specified_value = 30;
     let simulated_random_number = 3;
@@ -17,6 +17,10 @@ fn main() {
     for val in v1_iter {
         println!("{}", val);
     }
+
+    let v2: Vec<i32> = vec![1, 2, 3];
+    let v3: Vec<_> = v2.iter().map(|x| x + 1).collect();
+    assert_eq!(v3, vec![2, 3, 4]);
 }
 #[test]
 fn iteratore_demonstration() {
