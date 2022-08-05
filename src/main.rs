@@ -9,9 +9,30 @@ fn main() {
     assert!(equal_to_x(y));
     let u = vec![1, 2, 3];
     let equal_to_x_vec = move |z| z == u;
-    println!("can't ust u here {:?}", u);
+    //println!("can't ust u here {:?}", u); //Code will not compile consider getting ride of pritln!
     let v = vec![2, 3, 4];
     assert!(equal_to_x_vec(v));
+    let v1 = vec![2, 3, 5, 6, 72, 2];
+    let v1_iter = v1.iter();
+    for val in v1_iter {
+        println!("{}", val);
+    }
+}
+#[test]
+fn iteratore_demonstration() {
+    let v1 = vec![1, 2, 3];
+    let mut v1_iter = v1.iter();
+    assert_eq!(v1_iter.next(), Some(&1));
+    assert_eq!(v1_iter.next(), Some(&2));
+    assert_eq!(v1_iter.next(), Some(&3));
+    assert_eq!(v1_iter.next(), None);
+}
+#[test]
+fn iterator_sum() {
+    let v1 = vec![1, 2, 3];
+    let v1_iter = v1.iter();
+    let total: i32 = v1_iter.sum();
+    assert_eq!(total, 6);
 }
 struct Cacher<T>
 where
